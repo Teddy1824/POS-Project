@@ -1,56 +1,62 @@
 let products = 
-// JSON.parse(localStorage.getItem("products")) ?
-//  JSON.parse(localStorage.getItem("products")) : [];
-
-[ {
+JSON.parse(localStorage.getItem("products")) ?
+ JSON.parse(localStorage.getItem("products")) : [ 
+    {
     title: "Wool Hand-Made Sweater",
     catergory: "Sweater",
-    price: "R300.00",
+    price: "300",
     img: "https://i.postimg.cc/QM8yQn69/sweater.jpg"
 },
 
 {
     title: "The North Face",
     catergory: "T-Shirt",
-    price: "R150.00",
+    price: "150",
     img: "https://i.postimg.cc/TP3tL5wn/t-shirt.jpg"
 },
 
 {
     title: "Shorts",
     catergory: "Men Short",
-    price: "R150.00",
+    price: "150",
     img: "https://i.postimg.cc/qRtQQf2R/shorts.jpg"
 },
 
 {
     title: "Jonathan D",
     catergory: "Formal Men Shoes",
-    price: "R800.00",
+    price: "800",
     img: "https://i.postimg.cc/3xnBTrBN/jd.jpg"
 },
 
 {
     title: "Denim Top",
     catergory: "Denim Clothing",
-    price: "R500.00",
+    price: "500",
     img: "https://i.postimg.cc/qvMsjVTT/denimtop.jpg"
 },
 
 {
     title: "Denim Jean",
     catergory: "Denim Clothing",
-    price: "R700.00",
+    price: "700",
     img: "https://i.postimg.cc/mZY742Z4/denim-jean.jpg"
 },
 {
     title: "Casual Shoe",
     catergory: "Casual Men Shoes",
-    price: "R600.00",
+    price: "600",
     img: "https://i.postimg.cc/PqDPM2PH/casualshoe-jpg.webp"
 }
 
 ];
+
+let cart = [
+    JSON.parse(localStorage.getItem("cart")) ?
+JSON.parse(localStorage.getItem("cart")) : [],
+
+]
+
 
 function readProducts(products) {
     document.querySelector("#products").innerHTML = "";
@@ -59,12 +65,18 @@ function readProducts(products) {
     products.forEach((product, i) => {
         document.querySelector("#products").innerHTML += `
         
+    
         <div class="clothes">
         <img src=${product.img}>
         <h4>${product.title}</h4>
         <h5>${product.price}</h4>
+        <div class="cart-buttons">
+               <input type="number" class="control" value=${product.quan} min=1 id="editCart${i}">
+              </div>
+             
         <button type="button" onclick="deleteProduct(${i}) " class="btn btn-danger" id="input-delete" >Delete</button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#input-edit${i}" >Edit</button>
+        <button type="button" class="btn btn-success" onclick="readCart(${i})">Add to cart</button>
         </div>
 
         <div class="modal fade" id="input-edit${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -103,6 +115,8 @@ function readProducts(products) {
     </div>
   </div>
 </div>
+
+
 
         `;
     })
@@ -163,4 +177,50 @@ function updateProduct(i) {
     alert (err)
 };
 
+}
+
+function readCart(i) {
+    console.log(i)
+    console.log(cart)
+    let quan = document.querySelector(`#editCart${i}`).value;
+    let inserted = false;
+    cart.forEach(product => {
+        if (product.title == products[i].title) {
+            product.quan = parseInt(product.quan) + parseInt(quan);
+            inserted = true;
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
+    });
+
+    if (!inserted) {
+        cart.push({...products[i], quan});
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+    console.log(cart)
+}
+
+function categorySort() {
+    let category = document.querySelector("#categorySort").value;
+    if (category == "All") {
+        
+        readProducts(products);
+        return;
+    }
+
+
+  let filteredProducts = products.filter(product => {
+       return product.category == category
+    })
+    readProducts(filteredProducts);
+}
+
+function arrangeName() {
+    let direction = document.querySelector("#arrangeName").value;
+
+    let arrangedProducts = products.sort((a, b) => {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1;
+        }
+        
+    })
 }
