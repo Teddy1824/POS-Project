@@ -10,7 +10,7 @@ let products =
 },
 
 {
-    title: "The New Face",
+    title: "The North Face",
     catergory: "T-Shirt",
     price: "R150.00",
     img: "https://i.postimg.cc/TP3tL5wn/t-shirt.jpg"
