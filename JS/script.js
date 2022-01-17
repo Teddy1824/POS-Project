@@ -51,11 +51,8 @@ JSON.parse(localStorage.getItem("products")) ?
 
 ];
 
-let cart = [
-    JSON.parse(localStorage.getItem("cart")) ?
-JSON.parse(localStorage.getItem("cart")) : [],
-
-]
+let cart = JSON.parse(localStorage.getItem("cart")) ?
+JSON.parse(localStorage.getItem("cart")) : []
 
 // read data //
 function readProducts(products) {
@@ -71,7 +68,8 @@ function readProducts(products) {
         <h4>${product.title}</h4>
         <h5>${product.price}</h4>
         <div class="cart-buttons">
-               <input type="number" class="control" value=${product.quan} min=1 id="editCart${i}">
+        <h5>Quantity:</h5>
+               <input type="number" class="control" value=1 min=1 id="editCart${i}">
               </div>
              
         <button type="button" onclick="deleteProduct(${i}) " class="btn btn-danger" id="input-delete" >Delete</button>
@@ -192,10 +190,11 @@ function readCart(i) {
     console.log(cart)
     let quan = document.querySelector(`#editCart${i}`).value;
     let inserted = false;
-    cart.forEach(product => {
+    cart.forEach((product) => {
+        console.log(product.title, products[i].title)
         if (product.title == products[i].title) {
             alert (
-                `Product successfully ${quan} ${products[i].title} added to cart!`
+                `${quan} pair of ${products[i].title} successfully added to cart!`
             );
             product.quan = parseInt(product.quan) + parseInt(quan);
             inserted = true;
@@ -204,8 +203,9 @@ function readCart(i) {
     });
 
     if (!inserted) {
+        
         alert (
-            `${quan} ${products[i].title} successfully added to cart!`
+            `${quan} pair of ${products[i].title} successfully added to cart!`
         );
         cart.push({...products[i], quan});
         localStorage.setItem("cart", JSON.stringify(cart));
