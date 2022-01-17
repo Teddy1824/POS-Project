@@ -27,12 +27,15 @@ body {
 }
 
 .container1 {
+    text-align: center;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     display: inline-flex;
-    margin-left: 500px;
+    width: 880px;
+    margin-left: 450px;
     background: rgba(255,255,255,0.7);
+    padding-right: 200px;
 
 }
 

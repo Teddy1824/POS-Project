@@ -26,8 +26,8 @@
         </div>
       </nav>
   
-      <div class="container1">
-        <div>
+      <div class="container1 d-flex justify-content-end mb-3 mt-5 pt-4" >
+        <div class="d-flex w-25 m-3">
           <label for="categorySort" class="form-label">Sort by category
             <select name="categorySort" id="categorySort" onchange="categorySort()">
               <option value="select">-SELECT ONE-</option>
@@ -42,17 +42,23 @@
           </label>
         </div>
 
+
+        <div class="d-flex w-25 m-3">
     <label for="priceSort" class="form-label">Sort by Price</label>
     <select name="priceSort" id="priceSort" onchange="priceSort()">
       <option value="ascending">Ascending</option>
       <option value="descending">Descending</option>
     </select>
+        </div>
 
+        
+    <div class="d-flex w-25 m-3">
     <label for="arrangeName" class="form-label">Sort by Name</label>
     <select name="arrangeName" id="arrangeName" onchange="arrangeName()">
       <option value="ascending">Ascending</option>
       <option value="descending">Descending</option>
     </select>
+    </div>
       </div>
 
   <!-- Modal -->
