@@ -33,5 +33,10 @@ body {
     display: inline-flex;
     margin-left: 500px;
     background: rgba(255,255,255,0.7);
-    
+
+}
+
+.total {
+    color: white;
+    text-align: center;
 }
