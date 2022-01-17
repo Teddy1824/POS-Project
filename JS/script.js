@@ -24,7 +24,7 @@ JSON.parse(localStorage.getItem("products")) ?
 
 {
     title: "Jonathan D",
-    catergory: "Formal Men Shoes",
+    catergory: "Formal Shoes",
     price: "800",
     img: "https://i.postimg.cc/3xnBTrBN/jd.jpg"
 },
@@ -44,7 +44,7 @@ JSON.parse(localStorage.getItem("products")) ?
 },
 {
     title: "Casual Shoe",
-    catergory: "Casual Men Shoes",
+    catergory: "Casual Shoes",
     price: "600",
     img: "https://i.postimg.cc/PqDPM2PH/casualshoe-jpg.webp"
 }
@@ -57,7 +57,7 @@ JSON.parse(localStorage.getItem("cart")) : [],
 
 ]
 
-
+// read data //
 function readProducts(products) {
     document.querySelector("#products").innerHTML = "";
     console.log(products);
@@ -92,12 +92,14 @@ function readProducts(products) {
         <input type="text" id="input-title-${i}"><br>
         <h4>Category</h4>
         <select name="choosen-item" id="select-category-${i}">
-            <option>-SELECT ONE-</option>
-            <option>Men Shorts</option>
-            <option>Formal Men Shoes</option>
-            <option>Denim Clothing</option>
-            <option>Casual Men Shoes</option>
-            <option>Sweater</option>
+              <option value="select">-SELECT ONE-</option>
+              <option value="All">All</option>
+              <option value="Men Short">Men Shorts</option>
+              <option value="Formal Shoes">Formal Men Shoes</option>
+              <option value="Denim Clothing">Denim Clothing</option>
+              <option value="Casual Shoes">Casual Men Shoes</option>
+              <option value="Sweater">Sweater</option>
+              <option value="T-Shirt">T-Shirt</option>
         </select>
         
         <h4>Price</h4>
@@ -124,7 +126,7 @@ function readProducts(products) {
 
 readProducts(products);
 
-
+// view data //
 function viewProducts() {
     // let product = document.querySelector("#products").value;
     let title = document.querySelector("#input-title").value;
@@ -148,12 +150,17 @@ readProducts(products);
     };
 }
 
+// delete function //
 function deleteProduct(i) {
+    let confirmation = confirm("Are you positive you want to remove this product?");
+    if (confirmation) {
     products.splice(i, 1);
     localStorage.setItem("products", JSON.stringify(products));
     readProducts(products);
+    }
 }
 
+// update products //
 function updateProduct(i) {
     let title = document.querySelector(`#input-title-${i}`).value;
     let catergory = document.querySelector(`#select-category-${i}`).value;
@@ -179,6 +186,7 @@ function updateProduct(i) {
 
 }
 
+// read cart //
 function readCart(i) {
     console.log(i)
     console.log(cart)
@@ -186,6 +194,9 @@ function readCart(i) {
     let inserted = false;
     cart.forEach(product => {
         if (product.title == products[i].title) {
+            alert (
+                `Product successfully ${quan} ${products[i].title} added to cart!`
+            );
             product.quan = parseInt(product.quan) + parseInt(quan);
             inserted = true;
             localStorage.setItem("cart", JSON.stringify(cart));
@@ -193,12 +204,16 @@ function readCart(i) {
     });
 
     if (!inserted) {
+        alert (
+            `${quan} ${products[i].title} successfully added to cart!`
+        );
         cart.push({...products[i], quan});
         localStorage.setItem("cart", JSON.stringify(cart));
     }
     console.log(cart)
 }
 
+// sort by category //
 function categorySort() {
     let category = document.querySelector("#categorySort").value;
     if (category == "All") {
@@ -209,11 +224,12 @@ function categorySort() {
 
 
   let filteredProducts = products.filter(product => {
-       return product.category == category
+       return product.catergory == category
     })
     readProducts(filteredProducts);
 }
 
+// arrange product name //
 function arrangeName() {
     let direction = document.querySelector("#arrangeName").value;
 
@@ -221,6 +237,28 @@ function arrangeName() {
         if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return -1;
         }
-        
-    })
+
+        if (a.title.toLowerCase() > b.title.toLowerCase()) {
+            return 1;
+        }
+        return 0;
+    });
+
+    if (direction == "descending") arrangedProducts.reverse();
+
+    readProducts(arrangedProducts
+        );
+
+}
+
+// sort by price //
+function priceSort() {
+    let direction = document.querySelector("#priceSort").value
+
+    let sortedPrice = products.sort((a, b) => a.price - b.price);
+
+    if (direction == "descending") sortedPrice.reverse();
+
+    readProducts(sortedPrice);
+
 }

@@ -22,10 +22,7 @@ function readCart(cart) {
                <p>${parseInt(product.quan) * parseFloat(product.price)}</p>
               </div>
 
-              <div class="d-flex justify-content-end card-footer">
-            <button type="button" class="btn btn-primary w-50" id="delete" >
-              Edit
-            </button>
+              <div>
             <button type="button" class="btn btn-danger w-50 ms-3" onclick="deleteCart(${i})" >
               Delete
             </button>
@@ -40,6 +37,7 @@ function readCart(cart) {
     })
     document.querySelector("#cart").innerHTML += `
     <h1 class="total">Your total is R${calculateTotal()}</h1>
+    <button class="btn btn-primary" onclick="checkout()">Checkout</button>
     `;
       
 }
@@ -47,9 +45,12 @@ function readCart(cart) {
 readCart(cart);
 
 function deleteCart(i) {
+  let confirmation = confirm("Product being removed!");
+    if (confirmation) {
   cart.splice(i, 1);
   localStorage.setItem("cart", JSON.stringify(cart));
   readCart(cart);
+    }
 }
 
 // function editCart(i) {
@@ -71,4 +72,22 @@ function calculateTotal() {
       total =  total + product.price * product.quan
   })
   return total.toFixed(2);
+}
+
+function checkout() {
+  let total = calculateTotal()
+
+  try {
+    if (parseInt(total) == 0) throw new Error("Empty cart!");
+    let confirmation = confirm(`Total payment required: R${calculateTotal()}`);
+
+    if (confirmation) {
+      cart.length = 0;
+      localStorage.removeItem("cart");
+    }
+
+    readCart(cart);
+  } catch (err) {
+    alert (err);
+  }
 }

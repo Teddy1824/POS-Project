@@ -26,19 +26,33 @@
         </div>
       </nav>
   
-      <div class="container">
+      <div class="container1">
         <div>
           <label for="categorySort" class="form-label">Sort by category
-            <select name="categorySort" id="categorySort">
+            <select name="categorySort" id="categorySort" onchange="categorySort()">
               <option value="select">-SELECT ONE-</option>
-              <option value="shorts">Men Shorts</option>
-              <option value="mshoes">Formal Men Shoes</option>
-              <option value="denim">Denim Clothing</option>
-              <option value="cmshoes">Casual Men Shoes</option>
+              <option value="All">All</option>
+              <option value="Men Short">Men Shorts</option>
+              <option value="Formal Shoes">Formal Men Shoes</option>
+              <option value="Denim Clothing">Denim Clothing</option>
+              <option value="Casual Shoes">Casual Men Shoes</option>
               <option value="Sweater">Sweater</option>
+              <option value="T-Shirt">T-Shirt</option>
             </select>
           </label>
         </div>
+
+    <label for="priceSort" class="form-label">Sort by Price</label>
+    <select name="priceSort" id="priceSort" onchange="priceSort()">
+      <option value="ascending">Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
+
+    <label for="arrangeName" class="form-label">Sort by Name</label>
+    <select name="arrangeName" id="arrangeName" onchange="arrangeName()">
+      <option value="ascending">Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
       </div>
 
   <!-- Modal -->
@@ -53,15 +67,16 @@
         <div class="modal-body">
           <h4>Product title</h4>
           <input type="text" id="input-title"><br>
-          <h4>Category</h4>
-          <select name="choosen-item" id="select-category">
+          <!-- <h4>Category</h4>
+          <select name="choosen-item" id="select-category" onchange="categorySort()">
               <option>-SELECT ONE-</option>
-              <option>Men Shorts</option>
-              <option>Formal Men Shoes</option>
-              <option>Denim Clothing</option>
-              <option>Casual Men Shoes</option>
-              <option>Sweater</option>
-          </select>
+              <option value="All">All</option>
+              <option value="shorts">Men Shorts</option>
+              <option value="mshoes">Formal Men Shoes</option>
+              <option value="denim">Denim Clothing</option>
+              <option value="cmshoes">Casual Men Shoes</option>
+              <option value="sweater">Sweater</option>
+          </select> -->
           
           <h4>Price</h4>
           <input type="text" id="input-price"  placeholder="R0.00">
