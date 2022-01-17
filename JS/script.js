@@ -208,9 +208,11 @@ function readCart(i) {
             `${quan} pair of ${products[i].title} successfully added to cart!`
         );
         cart.push({...products[i], quan});
+        showCartBadge();
         localStorage.setItem("cart", JSON.stringify(cart));
     }
     console.log(cart)
+
 }
 
 // sort by category //
@@ -261,4 +263,8 @@ function priceSort() {
 
     readProducts(sortedPrice);
 
+}
+
+function showCartBadge() {
+    document.querySelector("#badge").innerHTML = cart ? cart.length : "";
 }
